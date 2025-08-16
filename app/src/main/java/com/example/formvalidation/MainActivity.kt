@@ -13,8 +13,8 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.formvalidation.uii.CountryDetailScreen
 import com.example.formvalidation.uii.CountryListScreen
-import com.example.formvalidation.viewmodel.UserViewModel
-
+import com.example.formvalidation.viewmodel.RegisterViewModel
+import com.example.formvalidation.viewmodel.LoginViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,29 +22,28 @@ class MainActivity : ComponentActivity() {
         setContent {
             MaterialTheme {
                 val navController = rememberNavController()
-                val viewModel: UserViewModel = viewModel()
 
                 NavHost(navController = navController, startDestination = Screen.Splash.route) {
                     composable(Screen.Splash.route) {
                         SplashScreen(navController)
                     }
-//                    composable(Screen.Register.route) {
-//                        RegisterScreen(navController, viewModel)
-//                    }
+
                     composable(Screen.Register.route) { backStackEntry ->
-                        val viewmodel: UserViewModel = viewModel(backStackEntry)
+                        val registerViewModel: RegisterViewModel = viewModel(backStackEntry)
                         RegisterScreen(
                             navController,
-                            viewmodel,
+                            registerViewModel,
                             onRegistrationSuccess = {
                                 navController.popBackStack()
                             }
                         )
                     }
 
-                    composable(Screen.Login.route) {
-                        LoginScreen(navController, viewModel)
+                    composable(Screen.Login.route) { backStackEntry ->
+                        val loginViewModel: LoginViewModel = viewModel(backStackEntry)
+                        LoginScreen(navController, loginViewModel)
                     }
+
                     composable(Screen.ForgotPassword.route) {
                         ForgotPasswordScreen(navController)
                     }
@@ -52,19 +51,21 @@ class MainActivity : ComponentActivity() {
                     composable(Screen.Home.route) {
                         HomeScreen(navController)
                     }
-//                    composable(Screen.Permission.route) {
-//                        PermissionScreen(navController)
-//                    }
+
                     composable(Screen.HomeTab.route) {
                         HomeTabScreen(navController)
                     }
+
                     composable(Screen.Profile.route) {
-                        FullProfileScreen(navController = navController)
+                        FullProfileScreen()
                     }
+
                     composable("countryList") {
                         CountryListScreen(
                             onCountryClick = { country ->
-                                navController.navigate("detail/${country.name}/${country.flags.png}")
+                                navController.navigate(
+                                    "detail/${country.name}/${country.flags.png}"
+                                )
                             }
                         )
                     }
@@ -80,14 +81,10 @@ class MainActivity : ComponentActivity() {
                         )
                     ) { backStackEntry ->
                         val name = Uri.decode(backStackEntry.arguments?.getString("name") ?: "")
-                        val flagUrl =
-                            Uri.decode(backStackEntry.arguments?.getString("flagUrl") ?: "")
-                        val capital =
-                            Uri.decode(backStackEntry.arguments?.getString("capital") ?: "N/A")
-                        val region =
-                            Uri.decode(backStackEntry.arguments?.getString("region") ?: "N/A")
-                        val population =
-                            Uri.decode(backStackEntry.arguments?.getString("population") ?: "N/A")
+                        val flagUrl = Uri.decode(backStackEntry.arguments?.getString("flagUrl") ?: "")
+                        val capital = Uri.decode(backStackEntry.arguments?.getString("capital") ?: "N/A")
+                        val region = Uri.decode(backStackEntry.arguments?.getString("region") ?: "N/A")
+                        val population = Uri.decode(backStackEntry.arguments?.getString("population") ?: "N/A")
 
                         CountryDetailScreen(
                             navController = navController,
@@ -96,14 +93,6 @@ class MainActivity : ComponentActivity() {
                             capital = capital,
                             region = region,
                             population = population
-                        )
-                    }
-
-                    composable("countryList") {
-                        CountryListScreen(
-                            onCountryClick = { country ->
-                                navController.navigate("detail/${country.name}/${country.flags.png}")
-                            }
                         )
                     }
 

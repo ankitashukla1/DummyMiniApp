@@ -17,7 +17,11 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import coil.compose.AsyncImage
+
+
+val DeepPurple = Color(0xFF6A1B9A)
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -36,19 +40,18 @@ fun CountryDetailScreen(
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
                         Icon(
-                            imageVector = Icons.Default.ArrowBack,
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                             contentDescription = "Back",
                             tint = Color.White
                         )
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primary,
+                    containerColor = DeepPurple,
                     titleContentColor = Color.White
                 )
             )
         }
-
     ) { padding ->
 
         Column(
@@ -77,7 +80,7 @@ fun CountryDetailScreen(
                     fontSize = 28.sp,
                     fontWeight = FontWeight.Bold
                 ),
-                color = MaterialTheme.colorScheme.primary
+                color = DeepPurple
             )
 
             Spacer(modifier = Modifier.height(28.dp))
@@ -104,7 +107,10 @@ fun CountryDetailScreen(
 
             Spacer(modifier = Modifier.height(24.dp))
 
-            Button(onClick = { /* TODO: Add action */ }) {
+            Button(
+                onClick = { /* TODO: Add action */ },
+                colors = ButtonDefaults.buttonColors(containerColor = DeepPurple)
+            ) {
                 Text("Learn More")
             }
 

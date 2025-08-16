@@ -57,7 +57,7 @@ fun ForgotPasswordScreen(navController: NavHostController) {
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = Color(0xFF9C27B0),
+                    containerColor = Color(0xFF6A1B9A),
                     titleContentColor = Color.White,
                     navigationIconContentColor = Color.White
                 )
@@ -88,7 +88,7 @@ fun ForgotPasswordScreen(navController: NavHostController) {
 
                 Text(
                     "Forgot Password?",
-                    style = MaterialTheme.typography.bodySmall.copy(color = Color(0xFF3B82F6))
+                    style = MaterialTheme.typography.bodySmall.copy(color = Color(0xFF6A1B9A))
                 )
 
                 Text(
@@ -118,7 +118,7 @@ fun ForgotPasswordScreen(navController: NavHostController) {
                         } else {
                             scope.launch {
                                 snackbarHostState.showSnackbar("Password reset link sent")
-                                delay(1000) // wait for 1 second
+                                delay(1000)
                                 navController.navigate(Screen.Login.route) {
                                     popUpTo(Screen.Login.route) { inclusive = true }
                                 }
@@ -128,7 +128,7 @@ fun ForgotPasswordScreen(navController: NavHostController) {
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(48.dp),
-                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF9C27B0)),
+                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF6A1B9A)),
                     shape = RoundedCornerShape(12.dp)
                 ) {
                     Text("Reset Password", color = Color.White)

@@ -25,7 +25,7 @@ fun HomeScreen(navController: NavController) {
                 HomeTabScreen(navController = navController)
             }
             composable(Screen.Profile.route) {
-                FullProfileScreen(navController = navController)
+                FullProfileScreen()
             }
             composable(Screen.Settings.route) { SettingsScreen() }
         }
