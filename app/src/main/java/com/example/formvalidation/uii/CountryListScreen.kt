@@ -1,35 +1,41 @@
 package com.example.formvalidation.uii
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.formvalidation.model.Country
-import com.example.formvalidation.model.Name
-import com.example.formvalidation.model.Flags
+import com.example.formvalidation.viewmodel.CountryViewModel
 
 @Composable
-fun CountryListScreen(onCountryClick: (Country) -> Unit) {
-    val countries = listOf(
-        Country(Name("Germany"), Flags("https://flagcdn.com/de.svg"), listOf("Berlin"), "Europe", 83000000),
-        Country(Name("France"), Flags("https://flagcdn.com/fr.svg"), listOf("Paris"), "Europe", 67000000),
-        Country(Name("Italy"), Flags("https://flagcdn.com/it.svg"), listOf("Rome"), "Europe", 60000000)
-    )
+fun CountryListScreen(
+    viewModel: CountryViewModel = viewModel(),
+    onCountryClick: (Country) -> Unit
+) {
+    val countries by viewModel.countries.collectAsState()
+    val error by viewModel.error.collectAsState()
 
-
-    LazyColumn {
-        items(countries) { country ->
-            Text(
-                text = country.name.common,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .clickable { onCountryClick(country) }
-                    .padding(16.dp)
-            )
+    if (error != null) {
+        Text(text = error ?: "Unknown error")
+    } else {
+        LazyColumn {
+            items(countries) { country ->
+                Text(
+                    text = country.name.common,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clickable { onCountryClick(country) }
+                        .padding(16.dp)
+                )
+            }
         }
     }
 }

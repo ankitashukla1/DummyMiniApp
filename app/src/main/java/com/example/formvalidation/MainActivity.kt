@@ -70,6 +70,14 @@ class MainActivity : ComponentActivity() {
                         )
                     }
 
+                    composable(Screen.Settings.route) {
+                        SettingsScreen(navController)
+                    }
+
+                    composable(Screen.Permission.route) {
+                        PermissionScreen(navController)
+                    }
+
                     composable(
                         route = "detail/{name}/{flagUrl}/{capital}/{region}/{population}",
                         arguments = listOf(

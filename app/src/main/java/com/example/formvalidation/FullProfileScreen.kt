@@ -42,15 +42,6 @@ fun FullProfileScreen() {
                 title = {
                     Text("My Profile", color = Color.White)
                 },
-                actions = {
-                    IconButton(onClick = { /* TODO: Settings */ }) {
-                        Icon(
-                            Icons.Default.Settings,
-                            contentDescription = "Settings",
-                            tint = Color.White
-                        )
-                    }
-                },
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = Color(0xFF6A1B9A)
                 )
